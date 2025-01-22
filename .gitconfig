@@ -1,0 +1,104 @@
+[user]
+    name = <insert-name>
+    email = <insert-email>
+[commit]
+[color]
+    ui = auto
+[alias]
+    pop = stash pop
+    b = branch
+    c = checkout
+    cp = cherry-pick --no-commit
+    # list all files known to git
+    ls = ls-files -v
+    ## fast-forward without merge commit
+    ff = merge --ff-only
+    ## force merge commit
+    mm = merge --no-ff
+    # pull and rebase
+    pullr = pull --rebase
+    # pull and merge (normally the default, but not the default in this config)
+    pullm = pull --no-ff --no-rebase
+    # show minified status
+    st = status -sb
+    # shortcut for diff
+    d = diff
+    # view staged changes
+    dc = diff --cached
+    # show diff of most recent commit
+    dd = show --oneline --minimal
+    # show word-based diff rather than line-based diff
+    dw = diff --minimal --word-diff=color
+
+    ddw = show --oneline --minimal --word-diff=color
+    # show metadata for most recent commit
+    ss = show --stat --pretty=fuller
+    sst = show --name-status --pretty=fuller
+    # view most recently stashed changes
+    sh = stash show
+    # view all branches
+    bb = branch -vv
+    # view merged branches (ie. can be cleared)
+    bm = branch --merged
+    # view not merged branches (ie. still need work)
+    bnm = branch --no-merged
+    # attempt a merge without committing (good for checking for merge conflicts)
+    drymerge = merge --no-commit --no-ff
+    # log enhancements
+    l = log --oneline
+    lf = log HEAD..FETCH_HEAD --decorate --graph
+    lc = log ORIG_HEAD.. --stat --no-merges
+    lg = log --oneline --decorate --graph
+    ## these are golden 😽 cheff's kiss
+    lgb = log --oneline --decorate --graph --branches
+    lga = log --oneline --decorate --graph --all
+    lgd = log --pretty='"format:%C(yellow)%h %C(magenta)%cd %Cgreen%an:%C(cyan)%cn%C(auto)%d% s"' --graph --date=format:%d-%m-%y
+    lgad = log --pretty='"format:%C(yellow)%h %C(magenta)%cd %Cgreen%an:%C(cyan)%cn%C(auto)%d% s"' --graph --all --date=format:%d-%m-%y
+    lgbd = log --pretty='"format:%C(yellow)%h %C(magenta)%cd %Cgreen%an:%C(cyan)%cn%C(auto)%d% s"' --graph --branches --date=format:%d-%m-%y
+    # very slightly safer force-push (still don't use lightly)
+    puff = push --force-with-lease
+    # show closest common ancestor
+    base = merge-base HEAD 
+    # open merge conflicts in vim when EDITOR=vim
+    um = "!f(){ git ls-files --unmerged | cut -f2 | sort -u ; }; $EDITOR `f` -p"
+[branch]
+    autosetupmerge = true
+    #autosetuprebase = always
+[push]
+    # always require branch specification when pushing new branches,
+    # and allow local and remote branches to be named differently
+    # as opposed to 'matching' which will push all branches every time,
+    # and 'simple' only pushes one branch, but requires local and remote
+    # names to match.
+    default = upstream
+[pull]
+    # disable default: pull and merge
+    ff = only
+[merge]
+    # pretty colors
+    color = auto
+[init]
+    templateDir = /usr/share/git-core/templates/
+    # use 'master' as default instead of 'main'
+    defaultBranch = master
+[core]
+    pager = less -x5,9 -FX~
+    whitespace = trailing-space,blank-at-eol,space-before-tab,tabwidth=4
+    autocrlf = input
+    excludesfile = ~/.gitignore
+[diff]
+    mnemonicprefix = true
+    algorithm = patience
+	tool = nvimdiff
+    wsErrorHighlight = all
+[rebase]
+    color = auto
+
+# clone shortcuts
+# usage: git clone gh:regionh/integration-myrepo
+[url "git@github.com:"]
+    insteadOf = gh:
+[url "git@github.com:"]
+    insteadOf = https://github.com/
+[url "git@gitlab.com:"]
+    insteadOf = gl:
